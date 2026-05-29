@@ -109,26 +109,9 @@ h2 {
   font-size: 32px;
 }
 
-.one {
-  width: 160px;
-  height: 160px;
-  position: relative;
-}
-
-.two {
-  width: 160px;
-  height: 160px;
-  position: absolute;
-  transition: opacity .2s ease-in-out;
-  -moz-transition: opacity .2s ease-in-out;
-  -webkit-transition: opacity .2s ease-in-out;
-}
-
-.fade {
-  transition: opacity .2s ease-in-out;
-  -moz-transition: opacity .2s ease-in-out;
-  -webkit-transition: opacity .2s ease-in-out;
-}
+/* Note: the original template's .one/.two/.fade hover-swap rules were removed.
+   The publication thumbnail now uses a pure display-toggle defined under
+   .pub-thumb (see PUBLICATION CARDS section). */
 
 span.highlight {
   background-color: #ffffd0;
@@ -139,4 +122,329 @@ span.highlight {
     padding: 20px;
     display: inline-block;
     border-radius: 10px;
+}
+
+/* ===================== NEWS ===================== */
+.news-list {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+
+.news-list li {
+  margin: 4px 0;
+}
+
+.news-date {
+  font-weight: 700;
+}
+
+/* ===================== PUBLICATION CARDS ===================== */
+.pub-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  background-color: #ffffff;
+  transition: box-shadow .2s ease-in-out;
+}
+
+.pub-card:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Option A: fixed WIDTH, auto height — the thumb is a rectangle matching the
+   image's natural aspect ratio, so the full image is shown (no cropping). */
+.pub-thumb {
+  flex: 0 0 300px;
+  width: 300px;
+}
+
+/* Hover-swap via a hard display-toggle: exactly one of .one / .two is shown. */
+.pub-thumb .one {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.pub-thumb .two {
+  display: none;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.pub-thumb:hover .one {
+  display: none;
+}
+
+.pub-thumb:hover .two {
+  display: block;
+}
+
+.pub-thumb .one img,
+.pub-thumb .two img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pub-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pub-title {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1772d0;
+  margin-bottom: 8px;
+}
+
+.pub-authors {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.pub-authors sup {
+  font-size: 10px;
+}
+
+.pub-affil {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 2px;
+}
+
+.pub-affil sup {
+  font-size: 10px;
+}
+
+.pub-footnote {
+  font-size: 12px;
+  font-style: italic;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.pub-venue {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* ===================== PILL BUTTONS ===================== */
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: #f0f0f0;
+  color: #333 !important;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  transition: background-color .15s ease-in-out, color .15s ease-in-out;
+}
+
+.pill svg {
+  display: block;
+}
+
+.pill:hover {
+  background-color: #d9d9d9;
+  color: #111 !important;
+}
+
+/* Header pill border (slightly stronger than the card pills). */
+.header-links .pill {
+  border: 1px solid #e0e0e0;
+}
+
+/* ===================== HEADER LINKS ROW ===================== */
+.header-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 4px;
+}
+
+.email-pill-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Floating "Email copied!" tooltip — hidden until copyEmail() adds .show. */
+.copy-tooltip {
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Triangle pointer aimed down at the Email pill. */
+.copy-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
+.copy-tooltip.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===================== EDUCATION CARDS ===================== */
+.edu-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  background-color: #ffffff;
+}
+
+.edu-logo {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #fff;
+}
+
+.edu-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.edu-degree {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.edu-school {
+  font-size: 14px;
+  color: #444;
+  margin-top: 1px;
+}
+
+.edu-advisor {
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+.edu-desc {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 600px) {
+  .pub-card {
+    flex-direction: column;
+  }
+  /* Thumb spans the full card width; height stays auto so the image
+     keeps its aspect ratio with no cropping. */
+  .pub-thumb {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+/* ===================== DARK MODE ===================== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e6e6e6;
+  }
+  body,
+  td,
+  th,
+  tr,
+  p,
+  a,
+  strong {
+    color: #e6e6e6;
+  }
+  a {
+    color: #6cb4ff;
+  }
+  a:focus,
+  a:hover {
+    color: #f09228;
+  }
+  .pub-card,
+  .edu-card {
+    background-color: #1c1c1c;
+    border-color: #333;
+  }
+  .pub-card:hover {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  }
+  .pub-title {
+    color: #6cb4ff;
+  }
+  .pub-affil {
+    color: #bbb;
+  }
+  .pub-footnote,
+  .edu-desc {
+    color: #999;
+  }
+  .pub-venue,
+  .edu-school,
+  .edu-advisor {
+    color: #cfcfcf;
+  }
+  .pill {
+    background-color: #2a2a2a;
+    color: #e6e6e6 !important;
+  }
+  .pill:hover {
+    background-color: #3a3a3a;
+    color: #fff !important;
+  }
+  .header-links .pill {
+    border-color: #3a3a3a;
+  }
+  .copy-tooltip {
+    background-color: #f0f0f0;
+    color: #111;
+  }
+  .copy-tooltip::after {
+    border-top-color: #f0f0f0;
+  }
+  .edu-logo {
+    background-color: #fff;
+  }
 }
